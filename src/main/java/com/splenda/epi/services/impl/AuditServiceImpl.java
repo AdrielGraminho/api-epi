@@ -3,6 +3,7 @@ package com.splenda.epi.services.impl;
 import com.splenda.epi.entities.core.AuditType;
 import com.splenda.epi.repository.AuditTypeRepository;
 import com.splenda.epi.services.AuditService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

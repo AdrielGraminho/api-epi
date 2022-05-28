@@ -1,5 +1,6 @@
 package com.splenda.epi.entities.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,5 +25,6 @@ public class AuditItem {
     @ManyToOne
     @JoinColumn(name = "id_audit_type")
     @EqualsAndHashCode.Include
+    @JsonIgnore
     private AuditType auditType;
 }
