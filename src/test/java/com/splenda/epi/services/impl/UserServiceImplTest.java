@@ -1,4 +1,4 @@
-package com.splenda.epi.services;
+package com.splenda.epi.services.impl;
 
 import com.splenda.epi.entities.core.User;
 import com.splenda.epi.entities.exceptions.UserNotFoundException;

@@ -49,7 +49,7 @@ public class AuditedItemServiceImpl implements AuditedItemService {
 
     }
 
-    private AuditedItem setAuditedItemIfThisExists(InputAuditedItemDTO inputAuditedItemdto, AuditedItem auditedItemToSave) {
+    protected AuditedItem setAuditedItemIfThisExists(InputAuditedItemDTO inputAuditedItemdto, AuditedItem auditedItemToSave) {
         Optional<AuditedItem> auditedItem =  auditedItemRepository.findByAuditItemBusinessUnitAndDate(Long.valueOf(inputAuditedItemdto.getItemId()), Long.valueOf(inputAuditedItemdto.getBusinessUnitId()));
         if (auditedItem.isPresent()){
             auditedItemToSave.setIdAuditedItem(auditedItem.get().getIdAuditedItem());

@@ -1,4 +1,4 @@
-package com.splenda.epi.services;
+package com.splenda.epi.services.impl;
 
 import com.splenda.epi.dtos.InputAuditedItemDTO;
 import com.splenda.epi.entities.core.AuditItem;
@@ -6,6 +6,9 @@ import com.splenda.epi.entities.core.AuditedItem;
 import com.splenda.epi.entities.core.PublicBusinessUnit;
 import com.splenda.epi.entities.core.User;
 import com.splenda.epi.repository.AuditedItemRepository;
+import com.splenda.epi.services.AuditService;
+import com.splenda.epi.services.PublicBusinessUnitService;
+import com.splenda.epi.services.UserService;
 import com.splenda.epi.services.impl.AuditedItemServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
@@ -102,7 +106,6 @@ public class AuditedItemServiceImplTest {
 
         auditedItemService.save(inputAuditedItemdto);
 
-
         verify(userService, times(1)).getUserDetailsLogged();
         verify(userService, times(1)).findByUserName(anyString());
         verify(auditService, times(1)).findAuditItemById(anyLong());
@@ -117,7 +120,7 @@ public class AuditedItemServiceImplTest {
         when(userService.findByUserName(anyString())).thenReturn(new User());
         when(auditService.findAuditItemById(anyLong())).thenReturn(new AuditItem());
         when(publicBusinessUnitService.findPublicBusinessUnitById(anyLong())).thenReturn(new PublicBusinessUnit());
-        when(auditedItemRepository.findByAuditItemBusinessUnitAndDate(anyLong(), anyLong())).thenReturn(Optional.of(AuditedItem.builder().idAuditedItem(1l).build()));
+        when(auditedItemRepository.findByAuditItemBusinessUnitAndDate(anyLong(), anyLong())).thenReturn(Optional.of(AuditedItem.builder().idAuditedItem(2l).build()));
         when(auditedItemRepository.save(any())).thenReturn(new AuditedItem());
 
         auditedItemService.save(inputAuditedItemdto);
@@ -129,4 +132,27 @@ public class AuditedItemServiceImplTest {
         verify(auditedItemRepository, times(1)).findByAuditItemBusinessUnitAndDate(anyLong(), anyLong());
         verify(auditedItemRepository, times(1)).save(any());
     }
+
+    @Test
+    public void shouldBeSetIdWhenFindedAuditedItem(){
+        AuditedItem  auditedItem = AuditedItem.builder().idAuditedItem(1l).build();
+        when(auditedItemRepository.findByAuditItemBusinessUnitAndDate(anyLong(), anyLong())).thenReturn(Optional.of(AuditedItem.builder().idAuditedItem(2l).build()));
+
+        AuditedItem result = auditedItemService.setAuditedItemIfThisExists(inputAuditedItemdto, auditedItem);
+
+        assertEquals(Long.valueOf(2), result.getIdAuditedItem());
+        verify(auditedItemRepository, times(1)).findByAuditItemBusinessUnitAndDate(anyLong(), anyLong());
+    }
+
+    @Test
+    public void shouldBeNotSetIdWhenNotFoundAuditedItem(){
+        AuditedItem  auditedItem = AuditedItem.builder().idAuditedItem(1l).build();
+        when(auditedItemRepository.findByAuditItemBusinessUnitAndDate(anyLong(), anyLong())).thenReturn(Optional.empty());
+
+        AuditedItem result = auditedItemService.setAuditedItemIfThisExists(inputAuditedItemdto, auditedItem);
+
+        assertEquals((Long.valueOf(inputAuditedItemdto.getItemId())), result.getIdAuditedItem());
+        verify(auditedItemRepository, times(1)).findByAuditItemBusinessUnitAndDate(anyLong(), anyLong());
+    }
+
 }
