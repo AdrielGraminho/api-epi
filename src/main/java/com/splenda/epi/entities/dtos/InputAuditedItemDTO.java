@@ -1,4 +1,4 @@
-package com.splenda.epi.dtos;
+package com.splenda.epi.entities.dtos;
 
 import com.splenda.epi.entities.enums.QualifyingFactorType;
 import lombok.*;

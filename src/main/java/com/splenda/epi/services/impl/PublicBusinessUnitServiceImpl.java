@@ -17,6 +17,6 @@ public class PublicBusinessUnitServiceImpl implements PublicBusinessUnitService 
 
     @Override
     public PublicBusinessUnit findPublicBusinessUnitById(Long idBusinessUnit) {
-        return publicBusinessUnitRepository.findById(idBusinessUnit).orElseThrow(() -> new BusinessUnitNotFoundException("user.not-found"));
+        return publicBusinessUnitRepository.findById(idBusinessUnit).orElseThrow(()-> new BusinessUnitNotFoundException("business-unit.not-found"));
     }
 }

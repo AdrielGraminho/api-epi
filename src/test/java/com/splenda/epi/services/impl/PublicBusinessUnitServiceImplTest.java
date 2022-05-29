@@ -3,7 +3,6 @@ package com.splenda.epi.services.impl;
 import com.splenda.epi.entities.core.PublicBusinessUnit;
 import com.splenda.epi.entities.exceptions.BusinessUnitNotFoundException;
 import com.splenda.epi.repository.PublicBusinessUnitRepository;
-import com.splenda.epi.services.impl.PublicBusinessUnitServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,5 +57,32 @@ public class PublicBusinessUnitServiceImplTest {
 
         assertEquals(publicBusinessUnit, result);
         verify(publicBusinessUnitRepository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    public void shouldBeReturnExceptionWhenFindPublicBusinessUnitByIdAndNotFound(){
+        when(publicBusinessUnitRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        String keyException = "";
+        try {
+            publicBusinessUnitService.findPublicBusinessUnitById(1l);
+        } catch (BusinessUnitNotFoundException businessUnitNotFoundException){
+            keyException = businessUnitNotFoundException.getKey();
+        }
+
+        assertEquals("business-unit.not-found", keyException);
+        verify(publicBusinessUnitRepository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    public void shouldBeReturnPublicBusinessUnitWhenFindById(){
+        PublicBusinessUnit publicBusinessUnit = PublicBusinessUnit.builder().idBusinessUnit(1l).build();
+        when(publicBusinessUnitRepository.findById(anyLong())).thenReturn(Optional.of(publicBusinessUnit));
+
+        PublicBusinessUnit result = publicBusinessUnitService.findPublicBusinessUnitById(1l);
+
+        assertEquals(publicBusinessUnit, result);
+        verify(publicBusinessUnitRepository, times(1)).findById(anyLong());
+
     }
 }

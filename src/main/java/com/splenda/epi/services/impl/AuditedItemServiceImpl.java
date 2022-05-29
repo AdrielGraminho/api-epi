@@ -1,6 +1,6 @@
 package com.splenda.epi.services.impl;
 
-import com.splenda.epi.dtos.InputAuditedItemDTO;
+import com.splenda.epi.entities.dtos.InputAuditedItemDTO;
 import com.splenda.epi.entities.core.AuditItem;
 import com.splenda.epi.entities.core.AuditedItem;
 import com.splenda.epi.entities.core.PublicBusinessUnit;

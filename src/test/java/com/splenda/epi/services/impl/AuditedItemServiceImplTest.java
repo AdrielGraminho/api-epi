@@ -1,6 +1,6 @@
 package com.splenda.epi.services.impl;
 
-import com.splenda.epi.dtos.InputAuditedItemDTO;
+import com.splenda.epi.entities.dtos.InputAuditedItemDTO;
 import com.splenda.epi.entities.core.AuditItem;
 import com.splenda.epi.entities.core.AuditedItem;
 import com.splenda.epi.entities.core.PublicBusinessUnit;
@@ -9,7 +9,6 @@ import com.splenda.epi.repository.AuditedItemRepository;
 import com.splenda.epi.services.AuditService;
 import com.splenda.epi.services.PublicBusinessUnitService;
 import com.splenda.epi.services.UserService;
-import com.splenda.epi.services.impl.AuditedItemServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

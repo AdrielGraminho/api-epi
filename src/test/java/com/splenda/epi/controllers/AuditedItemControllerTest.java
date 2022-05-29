@@ -1,6 +1,6 @@
 package com.splenda.epi.controllers;
 
-import com.splenda.epi.dtos.InputAuditedItemDTO;
+import com.splenda.epi.entities.dtos.InputAuditedItemDTO;
 import com.splenda.epi.services.AuditedItemService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
