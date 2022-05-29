@@ -49,4 +49,28 @@ public class UserServiceImplTest {
         assertEquals("user.not-found", keyException);
     }
 
+    @Test
+    public void shouldBeReturnUserWhenFindByUserName(){
+        User user = User.builder().idUser(1l).build();
+        when(userRepository.findByName(any())).thenReturn(Optional.of(user));
+
+        User result = userService.findByUserName("teste");
+
+        assertEquals(user, result);
+        verify(userRepository, times(1)).findByName(any());
+    }
+
+    @Test
+    public void shouldBeReturnExceptionWhenFindByUserNameAndNotFound(){
+        when(userRepository.findByName(any())).thenReturn(Optional.empty());
+
+        String keyException = "";
+        try {
+            userService.findByUserName("");
+        }catch (UserNotFoundException userNotFoundException){
+            keyException = userNotFoundException.getKey();
+        }
+        assertEquals("user.not-found", keyException);
+    }
+
 }

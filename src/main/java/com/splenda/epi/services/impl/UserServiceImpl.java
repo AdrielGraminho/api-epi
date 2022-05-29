@@ -4,7 +4,11 @@ import com.splenda.epi.entities.core.User;
 import com.splenda.epi.entities.exceptions.UserNotFoundException;
 import com.splenda.epi.repository.UserRepository;
 import com.splenda.epi.services.UserService;
+import com.splenda.epi.utils.UserUtils;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,5 +24,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserById(Long userId) {
         return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("user.not-found"));
+    }
+
+    @Override
+    public User findByUserName(String userName) {
+        return userRepository.findByName(userName).orElseThrow(() -> new UserNotFoundException("user.not-found"));
+    }
+
+    @Override
+    public UserDetails getUserDetailsLogged() {
+        UserUtils userUtils = new UserUtils();
+        return userUtils.getUserDetails();
     }
 }
