@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -12,8 +14,11 @@ import javax.persistence.Enumerated;
 @NoArgsConstructor
 @Builder
 public class InputAuditedItemDTO {
+    @NotNull
     private Integer itemId;
+    @NotNull
     private Integer businessUnitId;
     @Enumerated(EnumType.STRING)
+    @NotNull
     private QualifyingFactorType qualifyingFactorType;
 }
