@@ -3,7 +3,6 @@ package com.splenda.epi.services.impl;
 import com.splenda.epi.entities.core.User;
 import com.splenda.epi.entities.exceptions.UserNotFoundException;
 import com.splenda.epi.repository.UserRepository;
-import com.splenda.epi.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -52,17 +51,17 @@ public class UserServiceImplTest {
     @Test
     public void shouldBeReturnUserWhenFindByUserName(){
         User user = User.builder().idUser(1l).build();
-        when(userRepository.findByName(any())).thenReturn(Optional.of(user));
+        when(userRepository.findByUserName(any())).thenReturn(Optional.of(user));
 
         User result = userService.findByUserName("teste");
 
         assertEquals(user, result);
-        verify(userRepository, times(1)).findByName(any());
+        verify(userRepository, times(1)).findByUserName(any());
     }
 
     @Test
     public void shouldBeReturnExceptionWhenFindByUserNameAndNotFound(){
-        when(userRepository.findByName(any())).thenReturn(Optional.empty());
+        when(userRepository.findByUserName(any())).thenReturn(Optional.empty());
 
         String keyException = "";
         try {

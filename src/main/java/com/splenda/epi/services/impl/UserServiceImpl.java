@@ -8,8 +8,6 @@ import com.splenda.epi.utils.UserUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -28,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUserName(String userName) {
-        return userRepository.findByName(userName).orElseThrow(() -> new UserNotFoundException("user.not-found"));
+        return userRepository.findByUserName(userName).orElseThrow(() -> new UserNotFoundException("user.not-found"));
     }
 
     @Override

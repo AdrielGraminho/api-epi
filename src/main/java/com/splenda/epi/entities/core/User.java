@@ -24,11 +24,18 @@ public class User {
 
     private String name;
 
+    private String userName;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_role")
     private Role role;
 
     @JsonIgnore
     private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "id_employee")
+    @JsonIgnore
+    Employee employee;
 
 }

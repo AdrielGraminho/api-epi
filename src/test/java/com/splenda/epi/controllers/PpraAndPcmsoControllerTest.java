@@ -33,7 +33,6 @@ public class PpraAndPcmsoControllerTest {
 
         assertEquals(ResponseEntity.ok(List.of(ppraAndPcmso)), result);
         verify(ppraAndPcmsoService, times(1)).findLastPpraAndPcmsoByUnitId(any());
-
     }
 
 }
