@@ -32,4 +32,8 @@ public class Exit {
     private User user;
 
     private LocalDate forecastDate;
+
+    @ManyToOne
+    @JoinColumn(name = "id_item")
+    private Item item;
 }

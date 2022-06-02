@@ -3,6 +3,7 @@ package com.splenda.epi.controllers;
 import com.splenda.epi.entities.core.PpraAndPcmso;
 import com.splenda.epi.services.PpraAndPcmsoService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class PpraAndPcmsoController {
     }
 
     @GetMapping()
+    @PreAuthorize("hasAnyAuthority('TOTAL')")
     public ResponseEntity<List<PpraAndPcmso>> findLastPpraAndPcmsoByUnitId(@RequestParam Integer idBusinessUnit){
         return ResponseEntity.ok(ppraAndPcmsoService.findLastPpraAndPcmsoByUnitId(idBusinessUnit));
     }
