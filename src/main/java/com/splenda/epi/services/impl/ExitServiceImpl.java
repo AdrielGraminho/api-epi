@@ -1,6 +1,6 @@
 package com.splenda.epi.services.impl;
 
-import com.splenda.epi.entities.dtos.ExitItemDto;
+import com.splenda.epi.entities.dtos.ExitItemDTO;
 import com.splenda.epi.repository.ExitRepository;
 import com.splenda.epi.services.ExitService;
 import com.splenda.epi.services.PublicBusinessUnitService;
@@ -30,8 +30,13 @@ public class ExitServiceImpl implements ExitService {
     }
 
     @Override
-    public List<ExitItemDto> findExitItemByBusinessUnitAndDateForecast(Integer idBusinessUnit, LocalDate date) {
+    public List<ExitItemDTO> findExitItemByBusinessUnitAndDateForecast(Integer idBusinessUnit, LocalDate date) {
         publicBusinessUnitService.findPublicBusinessUnitById(Long.valueOf(idBusinessUnit));
         return exitRepository.findExitItemByBusinessUnitAndDateForecast(idBusinessUnit, date);
+    }
+
+    @Override
+    public List<ExitItemDTO> findExitItemDateForecast(LocalDate date) {
+        return exitRepository.findExitItemDateForecast(date);
     }
 }

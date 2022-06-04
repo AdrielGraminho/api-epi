@@ -1,6 +1,6 @@
 package com.splenda.epi.entities.dtos;
 
-public interface ExitItemDto {
+public interface ExitItemDTO {
     Integer getIdExit();
     String getItem();
 }

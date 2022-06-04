@@ -1,7 +1,7 @@
 package com.splenda.epi.services.impl;
 
 import com.splenda.epi.entities.core.PublicBusinessUnit;
-import com.splenda.epi.entities.dtos.ExitItemDto;
+import com.splenda.epi.entities.dtos.ExitItemDTO;
 import com.splenda.epi.repository.ExitRepository;
 import com.splenda.epi.services.PublicBusinessUnitService;
 import org.junit.Before;
@@ -31,11 +31,11 @@ public class ExitServiceImplTest {
     @Mock
     private PublicBusinessUnitService publicBusinessUnitService;
 
-    private ExitItemDto exitItemDto;
+    private ExitItemDTO exitItemDto;
 
     @Before
     public void setUp(){
-        exitItemDto = new ExitItemDto() {
+        exitItemDto = new ExitItemDTO() {
             @Override
             public Integer getIdExit() {
                 return 1;
@@ -64,13 +64,13 @@ public class ExitServiceImplTest {
 
     @Test
     public void shouldReturnExitItemDtoWhenFindItemsByDateAndBusinessUnit(){
-        List<ExitItemDto> exitItemDtoList = new ArrayList<>();
+        List<ExitItemDTO> exitItemDtoList = new ArrayList<>();
         exitItemDtoList.add(exitItemDto);
 
         when(exitRepository.findExitItemByBusinessUnitAndDateForecast(any(), any())).thenReturn(exitItemDtoList);
         when(publicBusinessUnitService.findPublicBusinessUnitById(anyLong())).thenReturn(new PublicBusinessUnit());
 
-        List<ExitItemDto> result = exitService.findExitItemByBusinessUnitAndDateForecast(1, LocalDate.now());
+        List<ExitItemDTO> result = exitService.findExitItemByBusinessUnitAndDateForecast(1, LocalDate.now());
 
         assertEquals(exitItemDtoList, result);
         verify(exitRepository, times(1)).findExitItemByBusinessUnitAndDateForecast(any(), any());
