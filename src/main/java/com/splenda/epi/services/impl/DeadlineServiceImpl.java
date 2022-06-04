@@ -64,6 +64,7 @@ public class DeadlineServiceImpl implements DeadlineService {
                     .builder()
                     .idDeadLine(exitItemDTO.getIdExit())
                     .description(exitItemDTO.getItem())
+                    .businessUnit(exitItemDTO.getBusinessUnit())
                     .build();
             deadLineDTOList.add(deadLineDTO);
         });
@@ -73,6 +74,7 @@ public class DeadlineServiceImpl implements DeadlineService {
                     .builder()
                     .idDeadLine(ppraAndPcmsoDTO.getIdPpraAndPcmso())
                     .description(ppraAndPcmsoDTO.getDescription())
+                    .businessUnit(ppraAndPcmsoDTO.getBusinessUnit())
                     .build();
         deadLineDTOList.add(deadLineDTO);
         });

@@ -10,4 +10,5 @@ import lombok.*;
 public class DeadLineDTO {
     private Integer idDeadLine;
     private String description;
+    private String businessUnit;
 }

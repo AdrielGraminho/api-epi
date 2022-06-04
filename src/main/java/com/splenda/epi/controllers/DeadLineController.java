@@ -2,6 +2,7 @@ package com.splenda.epi.controllers;
 
 import com.splenda.epi.entities.dtos.DeadLineDTO;
 import com.splenda.epi.services.DeadlineService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class DeadLineController {
     @GetMapping("/day")
     ResponseEntity<List<DeadLineDTO>> findDeadLineByIdBusinessUnitAndDate(
             @RequestParam(value = "idBusinessUnit", required = false)  Integer idBusinessUnit,
-            @RequestParam("date") LocalDate date
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("date") LocalDate date
 
     ){
         return ResponseEntity.ok(deadlineService.findDeadLineByIdBusinessUnitAndDate(idBusinessUnit, date));

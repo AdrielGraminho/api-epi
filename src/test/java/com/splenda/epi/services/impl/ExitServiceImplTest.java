@@ -45,6 +45,11 @@ public class ExitServiceImplTest {
             public String getItem() {
                 return "Test";
             }
+
+            @Override
+            public String getBusinessUnit() {
+                return "HONDA";
+            }
         };
     }
 

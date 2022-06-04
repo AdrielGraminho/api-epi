@@ -154,6 +154,11 @@ public class DeadLineServiceImplTest {
         public String getItem() {
             return "test";
         }
+
+        @Override
+        public String getBusinessUnit() {
+            return "HONDA";
+        }
     };
 
     PpraAndPcmsoDTO ppraAndPcmsoDTO = new PpraAndPcmsoDTO() {
@@ -165,6 +170,11 @@ public class DeadLineServiceImplTest {
         @Override
         public String getDescription() {
             return "test";
+        }
+
+        @Override
+        public String getBusinessUnit() {
+            return "HONDA";
         }
     };
 

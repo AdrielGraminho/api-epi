@@ -18,18 +18,22 @@ public interface ExitRepository  extends JpaRepository<Exit, Long> {
             " and r.idReceived is null ")
     List<LocalDate> findAllDateNotReceivedByBusinessUnit(Long idBusinessUnit);
 
-    @Query(value = " select ee.id_exit as idExit, ei.description as item  from human_resources_ms.epi_exit ee " +
+    @Query(value = " select ee.id_exit as idExit, ei.description as item, bu.description as businessUnit  " +
+            " from human_resources_ms.epi_exit ee " +
             " inner join human_resources_ms.epi_item ei on ei.id_item = ee.id_item " +
             " left join human_resources_ms.epi_received er on er.id_exit = ee.id_exit " +
             " inner join human_resources_ms.employee e on e.id = ee.id_employee " +
+            " inner join public.business_unit bu on bu.id_business_unit = e.business_unit_id " +
             " where e.business_unit_id = :idBusinessUnit and ee.forecast_date = :date " +
             " and er.id_received is null ", nativeQuery = true)
     List<ExitItemDTO> findExitItemByBusinessUnitAndDateForecast(Integer idBusinessUnit, LocalDate date);
 
-    @Query(value = " select ee.id_exit as idExit, ei.description as item  from human_resources_ms.epi_exit ee " +
+    @Query(value = " select ee.id_exit as idExit, ei.description as item, bu.description as businessUnit  " +
+            " from human_resources_ms.epi_exit ee " +
             " inner join human_resources_ms.epi_item ei on ei.id_item = ee.id_item " +
             " left join human_resources_ms.epi_received er on er.id_exit = ee.id_exit " +
             " inner join human_resources_ms.employee e on e.id = ee.id_employee " +
+            " inner join public.business_unit bu on bu.id_business_unit = e.business_unit_id " +
             " where ee.forecast_date = :date " +
             " and er.id_received is null ", nativeQuery = true)
     List<ExitItemDTO> findExitItemDateForecast(LocalDate date);
