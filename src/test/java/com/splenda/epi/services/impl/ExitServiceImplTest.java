@@ -3,6 +3,7 @@ package com.splenda.epi.services.impl;
 import com.splenda.epi.entities.core.*;
 import com.splenda.epi.entities.dtos.ExitItemDTO;
 import com.splenda.epi.entities.dtos.InputExitDTO;
+import com.splenda.epi.entities.exceptions.ExitNotFoundException;
 import com.splenda.epi.repository.ExitRepository;
 import com.splenda.epi.services.EmployeeService;
 import com.splenda.epi.services.ItemService;
@@ -26,6 +27,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -171,6 +173,31 @@ public class ExitServiceImplTest {
         verify(employeeService, times(1)).findById(anyLong());
         verify(exitRepository, times(1)).save(any());
         verify(userService, times(1)).findByUserName(any());
+    }
+
+    @Test
+    public void shouldReturnExitWhenFindById(){
+        Exit exit = Exit.builder().idExit(1L).build();
+        when(exitRepository.findById(anyLong())).thenReturn(Optional.of(exit));
+        Exit result = exitService.findById(1L);
+
+        assertEquals(exit, result);
+        verify(exitRepository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    public void shouldReturnExceptionWhenFindByIdAndNotFound(){
+        when(exitRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        String keyException = "";
+        try {
+            exitService.findById(1L);
+        }catch (ExitNotFoundException exitNotFoundException){
+            keyException = exitNotFoundException.getKey();
+        }
+
+        assertEquals("exit.not-found", keyException);
+        verify(exitRepository, times(1)).findById(anyLong());
     }
 
 

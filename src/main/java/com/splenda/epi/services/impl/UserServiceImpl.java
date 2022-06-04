@@ -34,4 +34,10 @@ public class UserServiceImpl implements UserService {
         UserUtils userUtils = new UserUtils();
         return userUtils.getUserDetails();
     }
+
+    @Override
+    public User userLogged() {
+        UserUtils userUtils = new UserUtils();
+        return findByUserName(userUtils.getUserDetails().getUsername());
+    }
 }

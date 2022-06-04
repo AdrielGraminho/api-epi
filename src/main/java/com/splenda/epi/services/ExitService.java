@@ -1,5 +1,6 @@
 package com.splenda.epi.services;
 
+import com.splenda.epi.entities.core.Exit;
 import com.splenda.epi.entities.dtos.ExitItemDTO;
 import com.splenda.epi.entities.dtos.InputExitDTO;
 
@@ -14,4 +15,6 @@ public interface ExitService {
     List<ExitItemDTO> findExitItemDateForecast(LocalDate dateDeadLine);
 
     void save(InputExitDTO inputExitDTO);
+
+    Exit findById(Long idExit);
 }

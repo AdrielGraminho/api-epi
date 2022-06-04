@@ -6,6 +6,7 @@ import com.splenda.epi.entities.core.Item;
 import com.splenda.epi.entities.core.User;
 import com.splenda.epi.entities.dtos.ExitItemDTO;
 import com.splenda.epi.entities.dtos.InputExitDTO;
+import com.splenda.epi.entities.exceptions.ExitNotFoundException;
 import com.splenda.epi.repository.ExitRepository;
 import com.splenda.epi.services.*;
 import com.splenda.epi.utils.UserUtils;
@@ -58,6 +59,11 @@ public class ExitServiceImpl implements ExitService {
     public void save(InputExitDTO inputExitDTO) {
         Exit exitToSave = buildExit(inputExitDTO);
         exitRepository.save(exitToSave);
+    }
+
+    @Override
+    public Exit findById(Long idExit) {
+        return exitRepository.findById(idExit).orElseThrow(()-> new ExitNotFoundException("exit.not-found"));
     }
 
     private Exit buildExit(InputExitDTO inputExitDTO) {
