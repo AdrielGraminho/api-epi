@@ -13,4 +13,6 @@ public interface PpraAndPcmsoService {
     List<PpraAndPcmsoDTO> findByBusinessUnitAndExpirationDate(Integer idBusinessUnit, LocalDate expirationDate);
 
     List<PpraAndPcmsoDTO> findByExpirationDate(LocalDate expirationDate);
+
+    List<LocalDate> findAllExpirationDateByBusinessUnit(Long idBusinessUnit);
 }

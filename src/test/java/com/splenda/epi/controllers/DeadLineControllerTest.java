@@ -35,4 +35,14 @@ public class DeadLineControllerTest {
         verify(deadlineService, times(1)).findDeadLineByIdBusinessUnitAndDate(any(), any());
     }
 
+    @Test
+    public void shouldReturnLocalDateListWhenFindExpirationDateByPermission(){
+        when(deadlineService.findAllDateByUserPermission()).thenReturn(List.of(LocalDate.now()));
+
+        ResponseEntity<List<LocalDate>> result = deadLineController.findAllDateByUserPermission();
+
+        assertEquals(ResponseEntity.ok(List.of(LocalDate.now())), result);
+        verify(deadlineService, times(1)).findAllDateByUserPermission();
+    }
+
 }

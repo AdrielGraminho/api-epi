@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface DeadlineService {
     List<DeadLineDTO> findDeadLineByIdBusinessUnitAndDate(Integer idBusinessUnit, LocalDate dateDeadline);
+
+    List<LocalDate> findAllDateByUserPermission();
 }

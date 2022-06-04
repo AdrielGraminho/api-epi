@@ -4,6 +4,7 @@ import com.splenda.epi.entities.dtos.DeadLineDTO;
 import com.splenda.epi.services.DeadlineService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,11 +23,18 @@ public class DeadLineController {
     }
 
     @GetMapping("/day")
+    @PreAuthorize("hasAnyAuthority('TOTAL', 'BU')")
     ResponseEntity<List<DeadLineDTO>> findDeadLineByIdBusinessUnitAndDate(
             @RequestParam(value = "idBusinessUnit", required = false)  Integer idBusinessUnit,
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("date") LocalDate date
 
     ){
         return ResponseEntity.ok(deadlineService.findDeadLineByIdBusinessUnitAndDate(idBusinessUnit, date));
+    }
+
+    @GetMapping("/expiration")
+    @PreAuthorize("hasAnyAuthority('TOTAL', 'BU')")
+    ResponseEntity<List<LocalDate>> findAllDateByUserPermission(){
+        return ResponseEntity.ok(deadlineService.findAllDateByUserPermission());
     }
 }

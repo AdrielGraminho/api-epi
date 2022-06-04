@@ -37,4 +37,9 @@ public class PpraAndPcmsoServiceImpl implements PpraAndPcmsoService {
     public List<PpraAndPcmsoDTO> findByExpirationDate(LocalDate expirationDate) {
         return ppraAndPcmsoRepository.findByExpirationDate(expirationDate);
     }
+
+    @Override
+    public List<LocalDate> findAllExpirationDateByBusinessUnit(Long idBusinessUnit) {
+        return ppraAndPcmsoRepository.findAllExpirationDateByBusinessUnit(idBusinessUnit);
+    }
 }

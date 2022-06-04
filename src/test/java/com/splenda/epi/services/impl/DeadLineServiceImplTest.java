@@ -218,6 +218,21 @@ public class DeadLineServiceImplTest {
         verify(ppraAndPcmsoService, times(1)).findByBusinessUnitAndExpirationDate(any(), any());
         assertEquals(exitItemDTO.getIdExit(), result.get(0).getIdDeadLine());
         assertEquals(ppraAndPcmsoDTO.getIdPpraAndPcmso(), result.get(1).getIdDeadLine());
+    }
 
+    @Test
+    public void shouldReturnAllDateExpirationByPermission(){
+        PublicBusinessUnit publicBusinessUnit = PublicBusinessUnit.builder().idBusinessUnit(1L).build();
+        when(publicBusinessUnitService.findByPermissionUser()).thenReturn(List.of(publicBusinessUnit));
+        when(exitService.findAllDateNotReceivedByBusinessUnit(any())).thenReturn(List.of(LocalDate.now().minusDays(1)));
+        when(ppraAndPcmsoService.findAllExpirationDateByBusinessUnit(any())).thenReturn(List.of(LocalDate.now()));
+
+        List<LocalDate> dateList = deadlineService.findAllDateByUserPermission();
+
+        assertEquals(LocalDate.now().minusDays(1), dateList.get(0));
+        assertEquals(LocalDate.now(), dateList.get(1));
+        verify(publicBusinessUnitService, times(1)).findByPermissionUser();
+        verify(exitService, times(1)).findAllDateNotReceivedByBusinessUnit(any());
+        verify(ppraAndPcmsoService, times(1)).findAllExpirationDateByBusinessUnit(any());
     }
 }

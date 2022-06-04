@@ -1,5 +1,6 @@
 package com.splenda.epi.services.impl;
 
+import com.splenda.epi.entities.core.PublicBusinessUnit;
 import com.splenda.epi.entities.dtos.DeadLineDTO;
 import com.splenda.epi.entities.dtos.ExitItemDTO;
 import com.splenda.epi.entities.dtos.PpraAndPcmsoDTO;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class DeadlineServiceImpl implements DeadlineService {
@@ -22,6 +24,8 @@ public class DeadlineServiceImpl implements DeadlineService {
     private final ExitService exitService;
     private final PpraAndPcmsoService ppraAndPcmsoService;
     private final PublicBusinessUnitService publicBusinessUnitService;
+
+
 
     public DeadlineServiceImpl(ExitService exitService, PpraAndPcmsoService ppraAndPcmsoService, PublicBusinessUnitService publicBusinessUnitService) {
         this.exitService = exitService;
@@ -41,6 +45,23 @@ public class DeadlineServiceImpl implements DeadlineService {
         } else {
             return findDeadLineDetailByDateAndBusinessUnit(dateDeadLine, idBusinessUnit);
         }
+    }
+
+    @Override
+    public List<LocalDate> findAllDateByUserPermission() {
+        List<PublicBusinessUnit> businessUnitList = publicBusinessUnitService.findByPermissionUser();
+        return findAllDateForBusinessUnit(businessUnitList);
+    }
+
+    private List<LocalDate> findAllDateForBusinessUnit(List<PublicBusinessUnit> businessUnitList) {
+        List<LocalDate> dates = new ArrayList<>();
+        businessUnitList.stream().forEach(businessUnit -> {
+            List<LocalDate> dateExit = exitService.findAllDateNotReceivedByBusinessUnit(Math.toIntExact(businessUnit.getIdBusinessUnit()));
+            dates.addAll(dateExit);
+            List<LocalDate> datePP = ppraAndPcmsoService.findAllExpirationDateByBusinessUnit(businessUnit.getIdBusinessUnit());
+            dates.addAll(datePP);
+        } );
+        return dates.stream().distinct().collect(Collectors.toList());
     }
 
     private List<DeadLineDTO> findDeadLineDetailByDateAndBusinessUnit(LocalDate dateDeadLine, Integer idBusinessUnit) {

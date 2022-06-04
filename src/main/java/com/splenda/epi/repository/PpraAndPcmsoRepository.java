@@ -32,4 +32,8 @@ public interface PpraAndPcmsoRepository extends JpaRepository<PpraAndPcmso, Long
             " inner join public.business_unit bu on bu.id_business_unit = epp.business_unit " +
             " where epp.expiration_date = :expirationDate ", nativeQuery = true)
     List<PpraAndPcmsoDTO> findByExpirationDate(LocalDate expirationDate);
+
+    @Query(value = " select pp.expirationDate from PpraAndPcmso pp " +
+            " where pp.publicBusinessUnit.idBusinessUnit = :idBusinessUnit ")
+    List<LocalDate> findAllExpirationDateByBusinessUnit(Long idBusinessUnit);
 }

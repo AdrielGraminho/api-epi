@@ -40,6 +40,11 @@ public class PpraAndPcmsoServiceImplTest {
         public String getDescription() {
             return "Test";
         }
+
+        @Override
+        public String getBusinessUnit() {
+            return "HONDA";
+        }
     };
 
     @Test
@@ -76,4 +81,13 @@ public class PpraAndPcmsoServiceImplTest {
 
     }
 
+    @Test
+    public void shouldBeReturnAllDatesWhenFindDateByPpraAndPcmso(){
+        when(ppraAndPcmsoRepository.findAllExpirationDateByBusinessUnit(any())).thenReturn(List.of(LocalDate.now()));
+
+        List<LocalDate> dates = ppraAndPcmsoService.findAllExpirationDateByBusinessUnit(1L);
+
+        assertEquals(LocalDate.now(), dates.get(0));
+        verify(ppraAndPcmsoRepository, times(1)).findAllExpirationDateByBusinessUnit(any());
+    }
 }
