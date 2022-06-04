@@ -19,4 +19,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee findByCpf(String cpf) {
         return employeeRepository.findByCpf(cpf).orElseThrow(() -> new EmployeNotFoundException("employee.not-found"));
     }
+
+    @Override
+    public Employee findById(Long idEmployee) {
+        return employeeRepository.findById(idEmployee).orElseThrow(() -> new EmployeNotFoundException("employee.not-found"));
+    }
 }

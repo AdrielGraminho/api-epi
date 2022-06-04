@@ -19,4 +19,6 @@ public class Item {
     private Long idItem;
 
     private String description;
+
+    private Integer durability;
 }

@@ -1,6 +1,7 @@
 package com.splenda.epi.services.impl;
 
 import com.splenda.epi.entities.core.Item;
+import com.splenda.epi.entities.exceptions.ItemNoutFoundException;
 import com.splenda.epi.repository.ItemRepository;
 import com.splenda.epi.services.ItemService;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,10 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<Item> findAll() {
         return itemRepository.findAll();
+    }
+
+    @Override
+    public Item findById(Long idItem) {
+        return itemRepository.findById(idItem).orElseThrow(()-> new ItemNoutFoundException("item.not-found"));
     }
 }

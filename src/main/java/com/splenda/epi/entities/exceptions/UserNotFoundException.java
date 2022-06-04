@@ -4,6 +4,6 @@ import org.springframework.http.HttpStatus;
 
 public class UserNotFoundException extends DefaultException{
     public UserNotFoundException(String msg) {
-        super(msg, HttpStatus.BAD_REQUEST, "user.not-found");
+        super(msg, HttpStatus.NOT_FOUND, "user.not-found");
     }
 }
