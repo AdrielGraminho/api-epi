@@ -2,6 +2,7 @@ package com.splenda.epi.services.impl;
 
 import com.splenda.epi.entities.core.Employee;
 import com.splenda.epi.entities.core.Item;
+import com.splenda.epi.entities.dtos.ItemEmployeeDTO;
 import com.splenda.epi.entities.exceptions.ItemNoutFoundException;
 import com.splenda.epi.repository.ItemRepository;
 import com.splenda.epi.services.EmployeeService;
@@ -72,16 +73,15 @@ public class ItemServiceImplTest {
 
     @Test
     public void shouldReturnItemListWhenFindByEmployee(){
-        List<Item> itemList = new ArrayList<>();
-        itemList.add(Item.builder().idItem(1L).build());
+        List<ItemEmployeeDTO> itemList = new ArrayList<>();
+        itemList.add(ItemEmployeeDTO.builder().idItem(1L).build());
         when(employeeService.findById(anyLong())).thenReturn(new Employee());
         when(itemRepository.findByIdEmployee(anyLong())).thenReturn(itemList);
 
-        List<Item> result = itemService.findByIdEmployee(1);
+        List<ItemEmployeeDTO> result = itemService.findByIdEmployee(1);
 
         assertEquals(itemList, result);
         verify(employeeService, times(1)).findById(anyLong());
         verify(itemRepository, times(1)).findByIdEmployee(anyLong());
-
     }
 }

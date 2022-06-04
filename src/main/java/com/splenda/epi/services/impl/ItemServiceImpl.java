@@ -1,6 +1,7 @@
 package com.splenda.epi.services.impl;
 
 import com.splenda.epi.entities.core.Item;
+import com.splenda.epi.entities.dtos.ItemEmployeeDTO;
 import com.splenda.epi.entities.exceptions.ItemNoutFoundException;
 import com.splenda.epi.repository.ItemRepository;
 import com.splenda.epi.services.EmployeeService;
@@ -32,7 +33,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> findByIdEmployee(Integer idEmployee) {
+    public List<ItemEmployeeDTO> findByIdEmployee(Integer idEmployee) {
         employeeService.findById(Long.valueOf(idEmployee));
         return itemRepository.findByIdEmployee(Long.valueOf(idEmployee));
     }
