@@ -8,4 +8,6 @@ public interface ItemService {
     List<Item> findAll();
 
     Item findById(Long idItem);
+
+    List<Item> findByIdEmployee(Integer idEmployee);
 }
