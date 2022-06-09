@@ -1,5 +1,6 @@
 package com.splenda.epi.controllers;
 
+import com.splenda.epi.entities.core.Item;
 import com.splenda.epi.entities.dtos.ItemEmployeeDTO;
 import com.splenda.epi.services.ItemService;
 import org.springframework.http.ResponseEntity;
@@ -29,4 +30,9 @@ public class ItemController {
       return ResponseEntity.ok(itemService.findByIdEmployee(idEmployee));
     }
 
+    @GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('TOTAL', 'BU')")
+    public ResponseEntity<List<Item>> findAll() {
+        return ResponseEntity.ok(itemService.findAll());
+    }
 }

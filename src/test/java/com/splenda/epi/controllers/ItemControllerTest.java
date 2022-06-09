@@ -37,4 +37,18 @@ public class ItemControllerTest {
         verify(itemService, times(1)).findByIdEmployee(any());
 
     }
+
+    @Test
+    public void shouldReturnAllItemsWhenFindAll(){
+        List<Item> itemList = new ArrayList<>();
+        itemList.add(Item.builder().idItem(1L).build());
+
+        when(itemService.findAll()).thenReturn(itemList);
+
+        ResponseEntity<List<Item>> result = itemController.findAll();
+
+        assertEquals(ResponseEntity.ok(itemList), result);
+        verify(itemService, times(1)).findAll();
+
+    }
 }
